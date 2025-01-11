@@ -1,9 +1,11 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-// import { ModelView } from "./ModelView"
+import { ModelView } from "./ModelView"
 import { useRef, useState } from "react"
 import { yellowImg } from "../utils"
 import * as THREE from "three"
+import { Canvas } from "@react-three/fiber"
+import { View } from "@react-three/drei"
 
 export function Model() {
   const [size, setSize] = useState("small")
@@ -35,7 +37,38 @@ export function Model() {
         </h1>
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
-            {/* <ModelView /> */}
+            <ModelView
+              index={1}
+              groupRef={small}
+              gsapType="view1"
+              controlRef={cameraControlSmall}
+              setRotationState={setSmallRotation}
+              item={model}
+              size={size}
+            />
+            <ModelView
+              index={2}
+              groupRef={large}
+              gsapType="view2"
+              controlRef={cameraControlLarge}
+              setRotationState={setLargeRotation}
+              item={model}
+              size={size}
+            />
+            <Canvas
+              className="w-full h-full"
+              style={{
+                position: "fixed",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                overflow: "hidden",
+              }}
+              eventSource={document.getElementById("root")}
+            >
+              <View.Port />
+            </Canvas>
           </div>
         </div>
       </div>
