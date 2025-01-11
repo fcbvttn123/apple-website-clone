@@ -6,6 +6,7 @@ import { yellowImg } from "../utils"
 import * as THREE from "three"
 import { Canvas } from "@react-three/fiber"
 import { View } from "@react-three/drei"
+import { models, sizes } from "../constants"
 
 export function Model() {
   const [size, setSize] = useState("small")
@@ -32,9 +33,11 @@ export function Model() {
   return (
     <section className="common-padding">
       <div className="screen-max-width">
+        {/* Title */}
         <h1 id="heading" className="section-heading">
           Take a closer look
         </h1>
+        {/* Models */}
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
             <ModelView
@@ -69,6 +72,37 @@ export function Model() {
             >
               <View.Port />
             </Canvas>
+          </div>
+          {/* Information */}
+          <div className="mx-auto w-full">
+            <p className="text-sm font-light text-center mb-5">{model.title}</p>
+            <div className="flex-center">
+              <ul className="color-container">
+                {models.map((item, i) => (
+                  <li
+                    key={i}
+                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
+                    style={{ backgroundColor: item.color[0] }}
+                    onClick={() => setModel(item)}
+                  />
+                ))}
+              </ul>
+              <button className="size-btn-container">
+                {sizes.map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className="size-btn"
+                    style={{
+                      backgroundColor: size === value ? "white" : "transparent",
+                      color: size === value ? "black" : "white",
+                    }}
+                    onClick={() => setSize(value)}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </button>
+            </div>
           </div>
         </div>
       </div>
